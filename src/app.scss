@@ -50,10 +50,23 @@
     font-family: Helvetica, Arial, sans-serif;
     font-size: 16px;
 }
+.font-mix {
+    font-family: "Alegreya sans", sans-serif;
+    font-size: 18px;
+    letter-spacing: .5px;
+}
+.font-mix .navbar-brand, .font-mix h1, .font-mix h2, .font-mix h3, .font-mix h4, .font-mix h5, .font-mix h6 {
+    font-family: D2R !important;
+}
+
+:root {
+    --bs-dark-rgb: 16, 16, 16 !important;
+    --bs-body-bg: #111 !important;
+}
 
 body {
     padding: 0 !important;
-    background-color: black !important;
+    background-color: #161616 !important;
     color: white !important;
 }
 
@@ -63,14 +76,16 @@ body {
 
 .unique-text {
     color: #c7b790ed;
+    text-transform: uppercase;
 }
 
 .set-text {
     color: #478e47;
+    text-transform: uppercase;
 }
 
 .enhanced {
-    color: #6f5df7;
+    color: #7e6ef8;
 }
 
 .set-header {
@@ -91,4 +106,29 @@ body {
 
 .combo, .types, .damage, .durability, .armor {
     color: whitesmoke;
+}
+
+.description {
+    color: #999;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+/** Navigation Bar changes **/
+.navbar-dark {
+    --bs-body-bg: #161616 !important;
+    
+    --bs-navbar-color: rgba(255, 255, 255, .8);
+    --bs-navbar-hover-color: rgba(255, 255, 255, 1);
+}
+
+.nav-link:active {
+    position: relative;
+    top: 1px;
+}
+
+/** Form control stuff **/
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(199, 183, 144, 0.3);
+    border-color: rgba(199, 183, 144, 0.93);
 }

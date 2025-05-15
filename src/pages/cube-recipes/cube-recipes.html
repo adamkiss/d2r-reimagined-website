@@ -3,10 +3,7 @@
         ${recipes.length} Recipes Found
     </h3>
     <div class="search my-2 text-center">
-        <form>
-            <label>Search Recipes</label><br>
-            <input type="text" value.bind="search" />
-        </form>
+        <input class="form-control" type="text" placeholder="Search in recipes…" aria-label="cube recipe search" value.bind="search">
     </div>
     <div class="row gy-5 px-5 text-center">
         <div class="col-12 col-md-6 col-xxl-4" repeat.for="recipe of recipes">

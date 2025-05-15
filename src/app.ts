@@ -36,6 +36,7 @@ export class App {
         { class: 'font-classic', name: 'Classic' },
         { class: 'font-resurrected', name: 'Resurrected' },
         { class: 'font-neutral', name: 'Neutral' },
+        { class: 'font-mix', name: 'Mix' },
     ];
 
     attached() {
