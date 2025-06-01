@@ -1,79 +1,52 @@
 <template>
-    <h3 class="text-center my-4">
-        ${filteredRunewords.length} Runewords Found
-    </h3>
-    <div class="container">
-        <div class="row align-content-center justify-content-center text-center mb-5">
-            <div class="col-12 col-md-4 col-lg-3">
-                <div class="au-select mb-2">
-                    <moo-select
-                            class="w-100"
-                            label="Select Socket Count"
-                            options.bind="amounts"
-                            class="standard-betsy-select"
-                            value.bind="selectedAmount"
-                    ></moo-select>
-                </div>
+    <div class="bg-linear-180 from-neutral-500/15 to-neutral-700/40 border-t border-t-white/20 border-b border-b-black/60 shadow-xl shadow-black/30 outline -outline-offset-4 outline-stone-200/10 p-8">
+        <div class="grid grid-cols-4 gap-8 items-start">
+            <div class="flex justify-center items-baseline gap-2 col-span-full text-5xl font-d2r text-center text-shadow-lg text-shadow-stone-900">
+                <h2>Runewords</h2>   
+                <span class="text-2xl uppercase">(${filteredRunewords.length} ${foundOrTotal})</span>
             </div>
-            <div class="col-12 col-md-4 col-lg-3">
-                <div class="au-select mb-2">
-                    <moo-select
-                            class="w-100"
-                            label="Select Type"
-                            options.bind="types"
-                            class="standard-betsy-select"
-                            value.bind="selectedType"
-                    ></moo-select>
-                    <moo-checkbox checked.bind="exclusiveType" id="exclusiveType">Exact type only</moo-checkbox>
-                </div>
+            <select name="class" id="class" class="w-full d2rr-select" value.bind="selectedAmount" is-empty.class="selectedAmount === ''">
+                <option repeat.for="opt of amounts" value.bind="opt.value">${opt.label}</option>
+            </select>
+            <div class="flex flex-col">
+                <select name="type" id="type" class="d2rr-select" value.bind="selectedType" is-empty.class="selectedType === ''">
+                    <option repeat.for="opt of types" value.bind="opt.value">${opt.label}</option>
+                </select>
+                <label class="flex gap-2 items-center">
+                    <input type="checkbox">
+                    <span>Exact type only</span>
+                </label>
             </div>
-            <div class="col-12 col-md-4 col-lg-3">
-                <div class="mb-2">
-                    <moo-text-field
-                            class="w-100"
-                            label="Search Runewords"
-                            type="text"
-                            value.bind="search"
-                    ></moo-text-field>
-                </div>
-            </div>
-            <div class="col-12 col-md-4 col-lg-3">
-                <div class="mb-2">
-                    <moo-text-field
-                            class="w-100"
-                            label="Runes"
-                            type="text"
-                            value.bind="searchRunes"
-                    ></moo-text-field>
-                </div>
-            </div>
+            <input class="d2rr-input" type="text" placeholder="Search runewords for…" value.bind="search">
+            <input class="d2rr-input" type="text" placeholder="Search for runes used…" value.bind="searchRunes">
         </div>
     </div>
-    <div class="row gy-5 px-5 text-center">
-        <div class="col-12 col-md-6 col-xxl-4" repeat.for="runeword of filteredRunewords">
-            <div class="card bg-dark p-2">
-                <div class="unique-text fs-4 mb-1">
-                    ${runeword.Name}
-                </div>
-                <div class="combo">
-                    <span repeat.for="rune of runeword.Runes">
-                        ${rune.Name | runeName} ${$index + 1 !== runeword.Runes.length ? ' + ' : ''}
-                    </span>
-                </div>
-                <div class="types py-2">
+
+    <div class="p-8 grid grid-cols-3 2xl:grid-cols-4 gap-8">
+        <article repeat.for="runeword of filteredRunewords" class="bg-black/50 box-shadow-inset-card border border-white/20">
+            <header class="text-center p-4">
+                <h3 class="font-d2r text-3xl text-diablo-rune tracking-tighter text-shadow text-shadow-black">${runeword.Name}</h3>
+                <p class="flex justify-center flex-wrap italic tracking-wide">
                     <span repeat.for="type of runeword.Types">
-                        ${transformTypeName(type.Name)} ${$index + 1 !== runeword.Types.length ? ' or ' : ''}
+                        ${transformTypeName(type.Name)} ${$index + 1 !== runeword.Types.length ? ' or ' : ''}
                     </span>
-                </div>
-                <div class="requirement" if.bind="actualLevelRequirement(runeword) > 0">
-                    Level ${actualLevelRequirement(runeword)} Required
-                </div>
-                <div class="mt-2">
-                    <div class="enhanced" repeat.for="property of runeword.Properties">
+                </p>
+            </header>
+            <hr class="mx-4 border-t border-t-black border-b border-b-white/15">
+            <section>
+                <p class="py-2 text-center text-stone-400" innerHtml.bind="runeword.Runes | runeListHtml"></p>
+            </section>
+            <hr class="mx-4 border-t border-t-black border-b border-b-white/15">
+            <section class=" p-4 flex flex-col gap-1 text-center">
+                <p if.bind="actualLevelRequirement(runeword) > 0" class="text-diablo-requirement">
+                    Level required: ${actualLevelRequirement(runeword)}
+                </p>
+                <ul class="mt-2 first:mt-0 text-diablo-magic">
+                    <li repeat.for="property of runeword.Properties">
                         ${property.PropertyString}
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </li>
+                </ul>
+            </section>
+        </article>
     </div>
 </template>

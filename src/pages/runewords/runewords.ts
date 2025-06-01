@@ -18,7 +18,7 @@ export class Runewords {
     // When checking the exclusive box, only the first value element is selected.
     types: { label: string, value: string[] }[] = [
         // Parent types
-        { label: '-', value: [] },
+        { label: 'Filter by type…', value: [] },
         { label: 'Any Armor', value: [ 'Armor', 'Any Armor'] },
         { label: 'Any Helm', value: [ 'Helm' ] },
         { label: 'Any Weapon', value: [ 'Weapon' ] },
@@ -52,7 +52,7 @@ export class Runewords {
     selectedType: string[];
 
     amounts = [
-        { value: undefined, label: 'Any' },
+        { value: '', label: 'Filter by sockets…' },
         { value: 2, label: '2 Sockets' },
         { value: 3, label: '3 Sockets' },
         { value: 4, label: '4 Sockets' },
@@ -190,5 +190,11 @@ export class Runewords {
             }
         }
         return runeword.RequiredLevel
+    }
+
+    get foundOrTotal() {
+        return this.filteredRunewords.length !== this.runewords.length
+            ? 'found'
+            : 'total';
     }
 }

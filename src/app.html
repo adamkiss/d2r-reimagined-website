@@ -1,13 +1,19 @@
 <div class="sticky top-0 bg-stone border-b border-b-white/15 shadow-inner shadow-black/20  overflow-x-scroll">
     <div class="bg-linear-180 from-black/60 to-black/40">
-        <nav class="flex justify-start items-center">
-            <a href="/"><img src="/assets/images/logo-full.svg" alt="D2R Reimagined logo, short version" class="w-40 opacity-90 mx-4"></a>
+        <nav class="
+            flex justify-start items-center
+            tracking-tighter text-white/70 font-d2r text-xl 
+        ">
+            <a href="/" class="px-2"><img src="/assets/images/logo-full.svg" alt="D2R Reimagined logo, short version" class="w-40 opacity-90"></a>
             <a
                 repeat.for="item of routes"    
                 href="/${item.path}"
-                class="text-white/70 -mt-px px-4 py-1 font-d2r text-2xl"
+                class="relative -mt-px px-4 py-1 active:top-[2px]"
                 nav-active.class="item.path === currentRoutePath"
             >${item.title}</a>
+            <a target="_blank" href="/talonrage/" class="relative -mt-px px-4 py-1 active:top-[2px]"
+            >1.2.1 docs</a>
+            <a target="_blank" href="https://wiki.d2r-reimagined.com/" class="relative -mt-px px-4 py-1 active:top-[2px]">Wiki</a>
         </nav>
     </div>
 </div>

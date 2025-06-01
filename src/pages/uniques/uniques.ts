@@ -7,28 +7,24 @@ export class Uniques {
     uniques = json;
     private types = [
         // The first element allows resetting the filter
-        { label: '-', value: undefined },
+        { value: '', label: 'Filter by type…' },
         // Now follows a unique list of all possible types
         ...[ ...new Set<string>(json.map(unique => unique.Type)).values() ]
             // which is sorted alphabetically
             .sort((a, b) => a.localeCompare(b))
             // and converted into a selection list
-            .map(type => { return { label: type, value: type } })
+            .map(type => { return { value: type, label: type, } })
     ];
 
     @bindable search: string;
-    @bindable class: string;
-    @bindable selectedType: string;
+    @bindable selectedClass: string | false = false;
+    @bindable selectedType: string | false = false;
 
     private _debouncedSearchItem!: DebouncedFunction;
 
     attached() {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         this._debouncedSearchItem = debounce(this.updateList.bind(this), 350);
-        this.updateList();
-    }
-    @watch('class')
-    handleClassChanged() {
         this.updateList();
     }
 
@@ -39,15 +35,20 @@ export class Uniques {
         }
     }
 
+    @watch('selectedClass')
+    handleClassChanged(val) {
+        this.updateList();
+    }
+
     @watch('selectedType')
-    handleTypeChanged() {
+    handleTypeChanged(val) {
         if (this._debouncedSearchItem) {
             this._debouncedSearchItem();
         }
     }
 
     classes = [
-        { value: undefined, label: '-' },
+        { value: '', label: 'Filter by class…' },
         { value: 'Amazon', label: 'Amazon' },
         { value: 'Assassin', label: 'Assassin' },
         { value: 'Barbarian', label: 'Barbarian' },
@@ -57,11 +58,9 @@ export class Uniques {
         { value: 'Sorceress', label: 'Sorceress' }
     ];
 
-
-
     updateList() {
         const isMatchingClass = (unique) => {
-            return !this.class || unique.Equipment.RequiredClass?.toLowerCase().includes(this.class?.toLowerCase());
+            return !this.selectedClass || unique.Equipment.RequiredClass?.toLowerCase().includes(this.selectedClass?.toLowerCase());
         }
         const isMatchingSearch = (unique) => {
             if (!this.search) return true;
