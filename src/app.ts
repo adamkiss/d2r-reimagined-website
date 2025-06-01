@@ -1,37 +1,43 @@
-import { route } from '@aurelia/router-lite';
+import { route, IRouter, IRouteConfig, INavigationModel, IRouteContext } from '@aurelia/router-lite';
+import { lazy, resolve } from '@aurelia/kernel';
+
+const routes: array = [
+    {
+        path: '',
+        component: import('./pages/home/home'),
+        title: 'Home',
+    },
+    {
+        path: 'cube-recipes',
+        component: import('./pages/cube-recipes/cube-recipes'),
+        title: 'Cube Recipes',
+    },
+    {
+        path: 'uniques',
+        component: import('./pages/uniques/uniques'),
+        title: 'Uniques',
+    },
+    {
+        path: 'sets',
+        component: import('./pages/sets/sets'),
+        title: 'Sets',
+    },
+    {
+        path: 'runewords',
+        component: import('./pages/runewords/runewords'),
+        title: 'Runewords',
+    }
+];
 
 @route({
     title: 'D2R Reimagined',
-    routes: [
-        {
-            path: '',
-            component: import('./pages/home/home'),
-            title: 'Home',
-        },
-        {
-            path: 'cube-recipes',
-            component: import('./pages/cube-recipes/cube-recipes'),
-            title: 'Cube Recipes',
-        },
-        {
-            path: 'uniques',
-            component: import('./pages/uniques/uniques'),
-            title: 'Uniques',
-        },
-        {
-            path: 'sets',
-            component: import('./pages/sets/sets'),
-            title: 'Sets',
-        },
-        {
-            path: 'runewords',
-            component: import('./pages/runewords/runewords'),
-            title: 'Runewords',
-        }
-    ]
+    routes
 })
 
 export class App {
+    private readonly routeContext = resolve(lazy(IRouteContext));
+    public routes: array = routes;
+
     fonts: Font[] = [
         { class: 'font-classic', name: 'Classic' },
         { class: 'font-resurrected', name: 'Resurrected' },

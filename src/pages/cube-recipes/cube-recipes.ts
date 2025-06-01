@@ -2,7 +2,6 @@ import { bindable, watch } from 'aurelia';
 
 import json from '../item-jsons/cube_recipes.json';
 
-import './cube-recipes.scss';
 import { debounce, DebouncedFunction } from '../../utilities/debounce';
 
 export class CubeRecipes {

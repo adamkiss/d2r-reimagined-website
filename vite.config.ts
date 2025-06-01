@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import aurelia from '@aurelia/vite-plugin';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
     server: {
@@ -22,6 +23,7 @@ export default defineConfig({
     },
     plugins: [
         aurelia({ enableConventions: true, hmr: true }),
+        tailwindcss(),
         viteStaticCopy({
             targets: [
                 {

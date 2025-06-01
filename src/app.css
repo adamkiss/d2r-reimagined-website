@@ -1,4 +1,4 @@
-@use 'styles/md-styles';
+@import 'tailwindcss';
 
 /* font converted using font-converter.net. thank you! */
 @font-face {
@@ -35,6 +35,12 @@
     url("assets/fonts/ExocetBlizzardMixedCaps-Medium.woff2") format("woff2"), /* Modern Browsers */
     url("assets/fonts/ExocetBlizzardMixedCaps-Medium.svg#ExocetBlizzardMixedCaps-Medium") format("svg");
     font-style: normal;
+}
+
+.bg-stone {
+    background-image: url('/assets/images/bg-tile.jpg');
+    background-position: 0 0;
+    background-size: 50%;
 }
 
 .font-classic {
