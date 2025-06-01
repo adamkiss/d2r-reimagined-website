@@ -1,4 +1,4 @@
-import { route, IRouter, IRouteConfig, INavigationModel, IRouteContext } from '@aurelia/router-lite';
+import { route, IRouterEvents, INavigationModel, IRouteContext, ICurrentRoute } from '@aurelia/router-lite';
 import { lazy, resolve } from '@aurelia/kernel';
 
 const routes: array = [
@@ -35,8 +35,11 @@ const routes: array = [
 })
 
 export class App {
+    public readonly routes: array = routes;
+    private loading: boolean = true;
+
     private readonly routeContext = resolve(lazy(IRouteContext));
-    public routes: array = routes;
+    private currentRoutePath;
 
     fonts: Font[] = [
         { class: 'font-classic', name: 'Classic' },
@@ -44,8 +47,23 @@ export class App {
         { class: 'font-neutral', name: 'Neutral' },
     ];
 
+    public constructor() {
+        const events = resolve(IRouterEvents);
+        events.subscribe('au:router:navigation-end', ev => {
+            this.currentRoutePath = ev.finalInstructions?.children[0]?.component?.value ?? null;
+        });
+
+    }
+
     attached() {
         this.loadFont();
+        this.loading = false;
+        
+        console.log(this.currentRoute);
+    }
+
+    async binding() {
+        this.routeContextResolved = await this.routeContext();
     }
 
     handleFontSelected(font: Font) {
@@ -60,6 +78,15 @@ export class App {
             document.body.classList.remove(...allClasses);
             document.body.classList.add(selectedFont);
         }
+    }
+
+    // get currentRoute() {
+    //     console.log(this.routeContextResolved);
+    //     return this.routeContextResolved;
+    // }
+
+    get isLoading() {
+        return this.loading;    
     }
 }
 

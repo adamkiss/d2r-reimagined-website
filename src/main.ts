@@ -7,8 +7,8 @@ import 'bootstrap';
 import { App } from './app';
 import * as Resources from './resources';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import '@betsybot/betsy-web-components/dist/style.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import '@betsybot/betsy-web-components/dist/style.css';
 
 import * as BetsyWebComponentsPlugin from '@betsybot/betsy-web-components';
 

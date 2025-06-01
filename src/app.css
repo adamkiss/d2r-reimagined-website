@@ -2,8 +2,9 @@
 
 @theme {
 	--breakpoint-xs: 400px;
+    --font-diablo: "DiabloHeavy";
+    --font-d2r: "d2r";
 }
-
 
 /* font converted using font-converter.net. thank you! */
 @font-face {
@@ -32,21 +33,37 @@
 
 @font-face {
     font-family: "D2R";
-    src: url("assets/fonts/ExocetBlizzardMixedCaps-Medium.eot"); /* IE9 Compat Modes */
-    src: url("assets/fonts/ExocetBlizzardMixedCaps-Medium?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-    url("assets/fonts/ExocetBlizzardMixedCaps-Medium.otf") format("opentype"), /* Open Type Font */
-    url("assets/fonts/ExocetBlizzardMixedCaps-Medium.ttf") format("truetype"), /* Safari, Android, iOS */
-    url("assets/fonts/ExocetBlizzardMixedCaps-Medium.woff") format("woff"), /* Modern Browsers */
-    url("assets/fonts/ExocetBlizzardMixedCaps-Medium.woff2") format("woff2"), /* Modern Browsers */
-    url("assets/fonts/ExocetBlizzardMixedCaps-Medium.svg#ExocetBlizzardMixedCaps-Medium") format("svg");
+    src: url("assets/fonts/ExocetBlizzardMixedCaps-Medium.woff2") format("woff2");
     font-style: normal;
 }
 
-.bg-stone {
-    background-image: url('/assets/images/bg-tile.jpg');
+@utility bg-stone {
+    background-image: url('/assets/images/bg-tile-1600.jpg');
     background-position: 0 0;
-    background-size: 500px;
+    background-size: 600px;
     background-repeat: repeat;
+}
+
+@utility text-shadow-blood {
+    text-shadow: 0 0 6px --alpha(var(--color-red-600) / 80%);
+}
+
+@layer utilities {
+    .bg-stone {
+        @apply bg-stone;
+    }
+
+}
+
+@layer components {
+    .nav-active {
+        @apply
+            bg-linear-180 from-black/30 to-black/20 !text-white
+            border-l border-r border-white/10
+            text-shadow-blood
+        ;
+        box-shadow: inset 1px 0 0 black, inset -1px 0 0 black;
+    }
 }
 
 .font-classic {
